@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
+      "alwaysStrict": true,
       "baseUrl": "./",
       "experimentalDecorators": true,
       "module": "commonjs",
       "moduleResolution": "node",
+      "noImplicitAny": true,
+      "noImplicitThis": true,
       "removeComments": true,
       "sourceMap": true,
       "strictBindCallApply": true,
+      "strictFunctionTypes": true,
       "strictNullChecks": true,
+      "strictPropertyInitialization": true,
       "target": "es5"
   },
   "include": [
