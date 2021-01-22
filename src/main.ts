@@ -1,5 +1,5 @@
-import { calculator } from './calculator/calculator';
+import ReactDOM from 'react-dom';
 
-const result = calculator(2, 4, '+');
+import { App } from './view/App';
 
-console.log(result);
+ReactDOM.render(App(), document.querySelector('#root'));
