@@ -1,6 +1,6 @@
 type Operator = '+' | '-' | '*' | '/';
 
-function operate(a: number, b: number, operator: Operator): number {
+export function calculator(a: number, b: number, operator: Operator): number {
     switch (operator) {
         case '+':
             return a + b;
@@ -15,10 +15,4 @@ function operate(a: number, b: number, operator: Operator): number {
 
             return a / b;
     }
-}
-
-export function calculator(numbers: number[], operator: Operator): number {
-    return numbers.reduce((acc: number, n): number => {
-        return operate(acc, n, operator);
-    });
 }
