@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Calculator } from './calculator/Calculator';
+
 export function App(): JSX.Element {
-    return <p>App</p>
+    return <Calculator />;
 }
