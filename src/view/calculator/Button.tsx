@@ -1,14 +1,22 @@
 import React from 'react';
 
-type Prop = {
+type Props = {
     children: JSX.Element | string;
-    clickHandler?: () => void;
+    clickHandler: () => void;
 };
 
-export function Button(prop: Prop): JSX.Element {
+const style: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    border: '1px solid black',
+    lineHeight: '20px',
+};
+
+export function Button(props: Props): JSX.Element {
     return (
-        <button type="button" onClick={prop.clickHandler}>
-            {prop.children}
+        <button type="button" style={style} onClick={props.clickHandler}>
+            {props.children}
         </button>
     );
 }
