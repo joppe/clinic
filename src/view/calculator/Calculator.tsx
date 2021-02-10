@@ -14,9 +14,12 @@ type State = {
     right: null | string;
 };
 
+const ROW_HEIGHT = 30;
+
 const style: Style = {
     root: {
         padding: '10px',
+        width: '400px',
         border: '1px solid black',
     },
     debug: {
@@ -30,10 +33,12 @@ const style: Style = {
     operations: {
         display: 'grid',
         gap: '10px',
+        gridAutoRows: `${ROW_HEIGHT}px`,
     },
     digits: {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
+        gridAutoRows: `${ROW_HEIGHT}px`,
         gap: '10px',
     },
 };
@@ -100,6 +105,7 @@ export function Calculator(): JSX.Element {
                     {[7, 8, 9, 4, 5, 6, 1, 2, 3, 0].map((digit) => (
                         <Button
                             key={digit}
+                            type="input"
                             clickHandler={() => addDigit(digit)}
                         >
                             {String(digit)}
@@ -107,15 +113,16 @@ export function Calculator(): JSX.Element {
                     ))}
                 </div>
                 <div style={style.operations}>
-                    <Button key="ac" clickHandler={reset}>
+                    <Button key="ac" type="state" clickHandler={reset}>
                         AC
                     </Button>
-                    <Button key="=" clickHandler={calc}>
+                    <Button key="=" type="operation" clickHandler={calc}>
                         =
                     </Button>
                     {['+', '-', '*', '/'].map((operator) => (
                         <Button
                             key={operator}
+                            type="operation"
                             clickHandler={() => operate(operator as Operator)}
                         >
                             {operator}
