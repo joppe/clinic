@@ -1,4 +1,4 @@
-type Operator = '+' | '-' | '*' | '/';
+export type Operator = '+' | '-' | '*' | '/';
 
 export function calculator(a: number, b: number, operator: Operator): number {
     switch (operator) {
