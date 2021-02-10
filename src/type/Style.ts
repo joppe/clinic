@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 export interface Style {
-    [component: string]: React.CSSProperties;
+    [component: string]: CSSProperties;
 }

@@ -1,25 +1,21 @@
 import { createContext } from 'react';
 
-import { Operator } from '../calculator/calculator';
+import { EventEmitter } from '../event-emitter/eventEmitter';
 
-export type CalculatorContextValue = {
-    input: string;
-    calculation: {
-        left?: number;
-        right?: number;
-        operator?: Operator;
-    };
-    addDigit(digit: number): void;
-    reset(): void;
-    calculate(): void;
-    operate(operator: Operator): void;
+export type InputChangePayload = {
+    name: string;
+    value: string;
 };
 
-export const CalculatorContext = createContext<CalculatorContextValue>({
-    input: '0',
-    calculation: {},
-    addDigit(digit: number): void {},
-    reset(): void {},
-    calculate(): void {},
-    operate(operator: Operator): void {},
-});
+export type Values = {
+    [name: string]: string;
+};
+
+export type CalculatorContextValue = {
+    emitter: EventEmitter<InputChangePayload>;
+    getValue(name: string): string;
+};
+
+export const CalculatorContext = createContext<
+    CalculatorContextValue | undefined
+>(undefined);

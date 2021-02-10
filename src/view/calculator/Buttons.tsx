@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
 
-import { Operator } from '../../calculator/calculator';
-import { CalculatorContext } from '../../context/CalculatorContext';
+import { Operator, calculator } from '../../calculator/calculator';
+import {
+    CalculatorContext,
+    CalculatorContextValue,
+} from '../../context/CalculatorContext';
+import { CHANGE_EVENT } from '../../provider/CalculatorContextProvider';
 import { Style } from '../../type/Style';
 import { Button } from './Button';
 
@@ -27,9 +31,39 @@ const style: Style = {
 };
 
 export function Buttons(): JSX.Element {
-    const { addDigit, reset, operate, calculate } = useContext(
+    const { emitter, getValue } = useContext(
         CalculatorContext,
-    );
+    ) as CalculatorContextValue;
+
+    function addInput(digit: number): void {
+        const current = getValue('input');
+        const value = current === '0' ? String(digit) : `${current}${digit}`;
+
+        emitter.emit(CHANGE_EVENT, { name: 'input', value });
+    }
+
+    function reset(): void {
+        emitter.emit(CHANGE_EVENT, { name: 'input', value: '0' });
+        emitter.emit(CHANGE_EVENT, { name: 'left', value: '' });
+        emitter.emit(CHANGE_EVENT, { name: 'right', value: '' });
+        emitter.emit(CHANGE_EVENT, { name: 'operator', value: '' });
+    }
+
+    function calculate(): void {
+        const left = getValue('left');
+        const operator = getValue('operator') as Operator;
+        const right = getValue('input');
+        const result = calculator(Number(left), Number(right), operator);
+
+        emitter.emit(CHANGE_EVENT, { name: 'right', value: right });
+        emitter.emit(CHANGE_EVENT, { name: 'input', value: String(result) });
+    }
+
+    function operate(operator: Operator): void {
+        emitter.emit(CHANGE_EVENT, { name: 'left', value: getValue('input') });
+        emitter.emit(CHANGE_EVENT, { name: 'operator', value: operator });
+        emitter.emit(CHANGE_EVENT, { name: 'input', value: '0' });
+    }
 
     return (
         <div style={style.root}>
@@ -38,7 +72,7 @@ export function Buttons(): JSX.Element {
                     <Button
                         key={digit}
                         type="input"
-                        clickHandler={() => addDigit(digit)}
+                        clickHandler={() => addInput(digit)}
                     >
                         {String(digit)}
                     </Button>

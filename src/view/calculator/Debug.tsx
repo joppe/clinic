@@ -1,25 +1,25 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { CalculatorContext } from '../../context/CalculatorContext';
+import { useValue } from '../../hook/useValue';
+import { blueTeal } from '../../style/color';
 import { Style } from '../../type/Style';
 
 const style: Style = {
-    debug: {
+    root: {
+        position: 'absolute',
+        left: '5px',
+        top: '5px',
         display: 'flex',
-        margin: '0 0 10px 0',
-        height: '30px',
         fontSize: '11px',
+        fontWeight: 'bold',
+        color: blueTeal,
     },
 };
 
-export function Debug() {
-    const { calculation } = useContext(CalculatorContext);
+export function Debug(): JSX.Element {
+    const left = useValue('left');
+    const operator = useValue('operator');
+    const right = useValue('right');
 
-    return (
-        <div style={style.debug}>
-            {`${calculation.left ?? ' '} ${calculation.operator ?? ' '} ${
-                calculation.right ?? ' '
-            }`}
-        </div>
-    );
+    return <div style={style.root}>{`${left} ${operator} ${right}`}</div>;
 }

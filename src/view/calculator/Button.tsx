@@ -1,4 +1,12 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
+
+import {
+    blueTeal,
+    brownBurntSienna,
+    brownSandy,
+    greenJava,
+    yellowGoldenSand,
+} from '../../style/color';
 
 type Type = 'input' | 'operation' | 'state';
 
@@ -8,13 +16,7 @@ type Props = {
     clickHandler: () => void;
 };
 
-const blueTeal = '#264653';
-const greenJava = '#2a9d8f';
-const yellowGoldenSand = '#e9c46a';
-const brownSandy = '#f4a261';
-const brownBurntSienna = '#e76f51';
-
-const style: React.CSSProperties = {
+const style: CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -23,25 +25,25 @@ const style: React.CSSProperties = {
     fontWeight: 'bold',
 };
 
-const inputStyle: React.CSSProperties = {
+const inputStyle: CSSProperties = {
     ...style,
     color: '#000000',
-    backgroundColor: yellowGoldenSand,
+    backgroundColor: brownBurntSienna,
 };
 
-const operationStyle: React.CSSProperties = {
+const operationStyle: CSSProperties = {
     ...style,
     color: '#ffffff',
     backgroundColor: blueTeal,
 };
 
-const stateStyle: React.CSSProperties = {
+const stateStyle: CSSProperties = {
     ...style,
     color: '#ffffff',
     backgroundColor: greenJava,
 };
 
-function getStyle(type: Type): React.CSSProperties {
+function getStyle(type: Type): CSSProperties {
     switch (type) {
         case 'input':
             return inputStyle;

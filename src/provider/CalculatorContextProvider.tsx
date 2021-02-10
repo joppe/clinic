@@ -1,68 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import { Operator, calculator } from '../calculator/calculator';
 import {
     CalculatorContext,
-    CalculatorContextValue,
+    InputChangePayload,
+    Values,
 } from '../context/CalculatorContext';
+import { eventEmitter } from '../event-emitter/eventEmitter';
 
 type Props = {
     children: React.ReactNode;
 };
 
+export const CHANGE_EVENT = 'change';
+
 export function CalculatorContextProvider(props: Props): JSX.Element {
-    const [input, setInput] = useState('0');
-    const [calculation, setCalculation] = useState<
-        CalculatorContextValue['calculation']
-    >({});
+    const valuesRef = useRef<Values>({
+        input: '0',
+        left: '',
+        operator: '',
+        right: '',
+    });
+    const emitter = eventEmitter<InputChangePayload>();
 
-    function addDigit(digit: number): void {
-        setInput(input === '0' ? String(digit) : `${input}${String(digit)}`);
-    }
-
-    function reset(): void {
-        setInput('0');
-        setCalculation({});
-    }
-
-    function operate(operator: Operator): void {
-        setCalculation({
-            left: Number(input),
-            operator,
-            right: undefined,
-        });
-        setInput('0');
-    }
-
-    function calculate(): void {
-        if (
-            calculation.left === undefined ||
-            calculation.operator === undefined
-        ) {
-            return;
-        }
-
-        setCalculation({
-            ...calculation,
-            right: Number(input),
-        });
-
-        const result = calculator(
-            calculation.left,
-            Number(input),
-            calculation.operator,
+    useEffect(() => {
+        return emitter.on(
+            CHANGE_EVENT,
+            (event: string, payload: InputChangePayload): void => {
+                valuesRef.current = {
+                    ...valuesRef.current,
+                    [payload.name]: payload.value,
+                };
+            },
         );
-
-        setInput(String(result));
-    }
+    }, [valuesRef]);
 
     const value = {
-        input,
-        calculation,
-        addDigit,
-        reset,
-        operate,
-        calculate,
+        emitter,
+        getValue(name: string): string {
+            return valuesRef.current[name];
+        },
     };
 
     return (
