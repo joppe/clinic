@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 
-import { CalculatorContext } from '../../context/CalculatorContext';
+import {
+    CalculatorContext,
+    CalculatorContextValue,
+} from '../../context/CalculatorContext';
 import { Style } from '../../type/Style';
 
 const style: Style = {
@@ -16,8 +19,8 @@ const style: Style = {
     },
 };
 
-export function Display() {
-    const { input } = useContext(CalculatorContext);
+export function Display(): JSX.Element {
+    const { input } = useContext(CalculatorContext) as CalculatorContextValue;
 
     return <input type="text" style={style.root} value={input} disabled />;
 }

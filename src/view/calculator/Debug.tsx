@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 
-import { CalculatorContext } from '../../context/CalculatorContext';
+import {
+    CalculatorContext,
+    CalculatorContextValue,
+} from '../../context/CalculatorContext';
 import { Style } from '../../type/Style';
 
 const style: Style = {
@@ -12,8 +15,10 @@ const style: Style = {
     },
 };
 
-export function Debug() {
-    const { calculation } = useContext(CalculatorContext);
+export function Debug(): JSX.Element {
+    const { calculation } = useContext(
+        CalculatorContext,
+    ) as CalculatorContextValue;
 
     return (
         <div style={style.debug}>

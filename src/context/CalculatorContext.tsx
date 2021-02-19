@@ -15,11 +15,6 @@ export type CalculatorContextValue = {
     operate(operator: Operator): void;
 };
 
-export const CalculatorContext = createContext<CalculatorContextValue>({
-    input: '0',
-    calculation: {},
-    addDigit(digit: number): void {},
-    reset(): void {},
-    calculate(): void {},
-    operate(operator: Operator): void {},
-});
+export const CalculatorContext = createContext<
+    CalculatorContextValue | undefined
+>(undefined);

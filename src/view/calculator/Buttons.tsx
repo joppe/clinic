@@ -1,7 +1,10 @@
 import React, { useContext } from 'react';
 
 import { Operator } from '../../calculator/calculator';
-import { CalculatorContext } from '../../context/CalculatorContext';
+import {
+    CalculatorContext,
+    CalculatorContextValue,
+} from '../../context/CalculatorContext';
 import { Style } from '../../type/Style';
 import { Button } from './Button';
 
@@ -29,7 +32,7 @@ const style: Style = {
 export function Buttons(): JSX.Element {
     const { addDigit, reset, operate, calculate } = useContext(
         CalculatorContext,
-    );
+    ) as CalculatorContextValue;
 
     return (
         <div style={style.root}>
