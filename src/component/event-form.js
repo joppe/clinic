@@ -185,7 +185,6 @@ function Form() {
             <FirstName />
             <LastName />
             <Email />
-            <Debug />
             <button type="button" onClick={clickHandler}>
                 Submit
             </button>

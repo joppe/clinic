@@ -8,6 +8,7 @@ function FirstName({ value, setValue }) {
             <input
                 type="text"
                 id="first-name"
+                autoComplete="chrome-off"
                 value={value}
                 onChange={setValue}
             />
@@ -26,6 +27,7 @@ function LastName({ value, setValue }) {
             <input
                 type="text"
                 id="last-name"
+                autoComplete="chrome-off"
                 value={value}
                 onChange={setValue}
             />
@@ -41,7 +43,13 @@ function Email({ value, setValue }) {
     return (
         <div>
             <label htmlFor="email">E-mail</label>
-            <input type="text" id="email" value={value} onChange={setValue} />
+            <input
+                type="text"
+                id="email"
+                autoComplete="chrome-off"
+                value={value}
+                onChange={setValue}
+            />
         </div>
     );
 }
@@ -89,7 +97,6 @@ export function Form() {
                 value={state.email}
                 setValue={(event) => update('email', event.target.value)}
             />
-            <Debug state={state} />
             <button type="button" onClick={clickHandler}>
                 Submit
             </button>
